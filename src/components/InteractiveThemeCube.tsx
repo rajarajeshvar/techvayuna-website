@@ -9,21 +9,22 @@ import { RefreshCw } from "lucide-react";
 const CUBE_SIZE = 48;
 const HALF_SIZE = CUBE_SIZE / 2; // 24px
 
-// Subtle isometric tilt so 3D depth and adjacent faces are always visible
-const ISO_X = -14;
-const ISO_Y = 22;
+// Looking directly at the user (0deg offset)
+const ISO_X = 0;
+const ISO_Y = 0;
 
+// Angles to bring each face straight towards the user's gaze
 const FACE_ROTATIONS = [
-  { rx: 0, ry: 0 },       // 0: Crimson (Front)
-  { rx: 0, ry: -90 },     // 1: Cyan (Right)
-  { rx: 0, ry: -180 },    // 2: Emerald (Back)
-  { rx: 0, ry: 90 },      // 3: Solar (Left)
-  { rx: -90, ry: 0 },     // 4: Violet (Top)
-  { rx: 90, ry: 0 },      // 5: Plasma (Bottom)
+  { rx: 0, ry: 0 },       // 0: Crimson (Front) -> looks straight at user
+  { rx: 0, ry: -90 },     // 1: Cyan (Right)    -> looks straight at user
+  { rx: 0, ry: 180 },     // 2: Emerald (Back)  -> looks straight at user
+  { rx: 0, ry: 90 },      // 3: Solar (Left)    -> looks straight at user
+  { rx: -90, ry: 0 },     // 4: Violet (Top)    -> looks straight at user
+  { rx: 90, ry: 0 },      // 5: Plasma (Bottom) -> looks straight at user
 ];
 
 export const InteractiveThemeCube: React.FC = () => {
-  const { activeTheme, themeIndex, cycleTheme, setThemeByIndex } = useTheme();
+  const { activeTheme, themeIndex, cycleTheme } = useTheme();
 
   const cubeRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -31,8 +32,9 @@ export const InteractiveThemeCube: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
 
-  // Active rotation state
-  const rotRef = useRef({ x: ISO_X, y: ISO_Y });
+  // Active rotation state & gaze tracking
+  const rotRef = useRef({ x: 0, y: 0 });
+  const gazeRef = useRef({ x: 0, y: 0 });
   const spinTweenRef = useRef<gsap.core.Tween | null>(null);
   const pressTimerRef = useRef<NodeJS.Timeout | null>(null);
   const pressStartTimeRef = useRef(0);
@@ -45,7 +47,7 @@ export const InteractiveThemeCube: React.FC = () => {
 
   // Smoothly transition to active theme face
   const snapToFace = useCallback(
-    (index: number, duration = 0.65) => {
+    (index: number, duration = 0.6) => {
       if (!cubeRef.current) return;
       if (spinTweenRef.current) {
         spinTweenRef.current.kill();
@@ -53,8 +55,8 @@ export const InteractiveThemeCube: React.FC = () => {
       }
 
       const target = FACE_ROTATIONS[index] || FACE_ROTATIONS[0];
-      const targetX = target.rx + ISO_X;
-      const targetY = target.ry + ISO_Y;
+      const targetX = target.rx + gazeRef.current.x;
+      const targetY = target.ry + gazeRef.current.y;
 
       // Find shortest rotational path around Y
       let currentY = rotRef.current.y;
@@ -85,33 +87,44 @@ export const InteractiveThemeCube: React.FC = () => {
     }
   }, [themeIndex, isPressed, snapToFace]);
 
-  // Subtle mouse parallax tilt on hover
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isPressed || !containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const nx = (e.clientX - rect.left) / rect.width - 0.5;
-    const ny = (e.clientY - rect.top) / rect.height - 0.5;
+  // "Look Into Me" Screen Mouse-Gaze Tracking:
+  // Subtly turns the cube's face to track the user's cursor across the screen
+  useEffect(() => {
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      if (isPressed) return;
+      if (!containerRef.current) return;
 
-    const target = FACE_ROTATIONS[themeIndex] || FACE_ROTATIONS[0];
-    const hoverX = target.rx + ISO_X - ny * 16;
-    const hoverY = target.ry + ISO_Y + nx * 16;
+      const rect = containerRef.current.getBoundingClientRect();
+      const cubeCenterX = rect.left + rect.width / 2;
+      const cubeCenterY = rect.top + rect.height / 2;
 
-    gsap.to(rotRef.current, {
-      x: hoverX,
-      y: hoverY,
-      duration: 0.35,
-      ease: "power2.out",
-      overwrite: "auto",
-      onUpdate: () => setTransform(rotRef.current.x, rotRef.current.y),
-    });
-  };
+      // Vector from cube to cursor
+      const dx = (e.clientX - cubeCenterX) / window.innerWidth;
+      const dy = (e.clientY - cubeCenterY) / window.innerHeight;
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    if (!isPressed) {
-      snapToFace(themeIndex, 0.5);
-    }
-  };
+      // Subtle look-at angles (max ~14 degrees)
+      const lookY = Math.max(-14, Math.min(14, dx * 22));
+      const lookX = Math.max(-14, Math.min(14, -dy * 22));
+
+      gazeRef.current = { x: lookX, y: lookY };
+
+      const target = FACE_ROTATIONS[themeIndex] || FACE_ROTATIONS[0];
+      const destX = target.rx + lookX;
+      const destY = target.ry + lookY;
+
+      gsap.to(rotRef.current, {
+        x: destX,
+        y: destY,
+        duration: 0.4,
+        ease: "power2.out",
+        overwrite: "auto",
+        onUpdate: () => setTransform(rotRef.current.x, rotRef.current.y),
+      });
+    };
+
+    window.addEventListener("mousemove", handleGlobalMouseMove, { passive: true });
+    return () => window.removeEventListener("mousemove", handleGlobalMouseMove);
+  }, [themeIndex, isPressed]);
 
   // Pointer Down: Start continuous smooth rotation while pressed
   const handlePointerDown = (e: React.PointerEvent) => {
@@ -125,7 +138,7 @@ export const InteractiveThemeCube: React.FC = () => {
     // Start continuous butter-smooth 3D spin with GSAP
     spinTweenRef.current = gsap.to(rotRef.current, {
       y: "+=360",
-      duration: 1.5,
+      duration: 1.4,
       ease: "none",
       repeat: -1,
       onUpdate: () => setTransform(rotRef.current.x, rotRef.current.y),
@@ -134,10 +147,10 @@ export const InteractiveThemeCube: React.FC = () => {
     // While holding down, smoothly cycle through themes every 400ms
     pressTimerRef.current = setInterval(() => {
       cycleTheme();
-    }, 420);
+    }, 400);
   };
 
-  // Pointer Up: Stop rotation and smoothly settle onto next face
+  // Pointer Up: Stop rotation and smoothly settle onto active face looking at user
   const handlePointerUp = (e: React.PointerEvent) => {
     try {
       (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
@@ -158,11 +171,11 @@ export const InteractiveThemeCube: React.FC = () => {
     }
 
     const elapsed = Date.now() - pressStartTimeRef.current;
-    if (elapsed < 250) {
-      // Quick click/tap: immediately advance theme smoothly
+    if (elapsed < 240) {
+      // Quick click/tap: advance theme smoothly
       cycleTheme();
     } else {
-      // Held down: snap smoothly to whichever theme is currently active
+      // Held down: snap smoothly to current active theme face
       snapToFace(themeIndex, 0.6);
     }
   };
@@ -224,8 +237,7 @@ export const InteractiveThemeCube: React.FC = () => {
       ref={containerRef}
       className="fixed bottom-5 right-5 z-[9990] flex flex-col items-center select-none"
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      onMouseMove={handleMouseMove}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {/* Sleek, minimal HUD badge */}
       <div
@@ -287,7 +299,7 @@ export const InteractiveThemeCube: React.FC = () => {
           style={{ backgroundColor: activeTheme.primary }}
         />
 
-        {/* 3D Cube Core */}
+        {/* 3D Cube Core - facing straight at user */}
         <div
           ref={cubeRef}
           className="relative pointer-events-none"
@@ -296,7 +308,7 @@ export const InteractiveThemeCube: React.FC = () => {
             height: `${CUBE_SIZE}px`,
             transformStyle: "preserve-3d",
             willChange: "transform",
-            transform: `rotateX(${ISO_X}deg) rotateY(${ISO_Y}deg)`,
+            transform: "rotateX(0deg) rotateY(0deg)",
           }}
         >
           {/* Inner Glowing Plasma Sphere */}
