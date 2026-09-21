@@ -113,10 +113,6 @@ export const DomainShowcase: React.FC = () => {
       id="domains"
       className="relative w-full min-h-[780px] md:min-h-[860px] py-16 overflow-hidden flex flex-col items-center justify-between"
     >
-      {/* Background Ambience */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-[var(--theme-primary,rgba(244,59,134,0.06))] blur-[150px] transition-colors duration-700" />
-      </div>
 
       {/* Header Info */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 mb-2">

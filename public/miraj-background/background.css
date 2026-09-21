@@ -1,0 +1,39 @@
+/* =========================================================
+   MIRAJ 3D Background - Minimal Overlay Styles
+   Keeps the 3D background strictly behind all page elements
+   and ensures no clicks/inputs are ever blocked.
+   ========================================================= */
+
+/* 3D WebGL Canvas */
+#world {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: -9999 !important;
+  pointer-events: none !important;
+  display: block;
+}
+
+/* Vignette & Film Grain Overlay */
+#veil {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: -9998 !important;
+  pointer-events: none !important;
+  background: radial-gradient(ellipse at 50% 60%, transparent 55%, rgba(25, 5, 20, 0.65) 100%);
+}
+
+#veil::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+
+/* Ensure the body or wrapper background does not obscure the canvas */
+body.miraj-bg-active {
+  background-color: transparent !important;
+}

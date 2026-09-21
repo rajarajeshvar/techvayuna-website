@@ -98,9 +98,6 @@ export const HeroSection: React.FC = () => {
       ref={heroRef}
       className="relative w-full h-screen min-h-[600px] flex flex-col justify-center items-center overflow-hidden bg-transparent bg-grid-pattern px-6"
     >
-      {/* Red ambient glow in background */}
-      <div data-speed="0.3" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-[#ff5e36]/10 via-[#f43b86]/10 to-[#610094]/10 rounded-full blur-[140px] pointer-events-none" />
-
       {/* Parallax Dense Forest Background (Red Tinted) */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Deep background forest layer */}

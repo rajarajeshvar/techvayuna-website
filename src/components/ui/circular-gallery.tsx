@@ -165,9 +165,9 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
                   transition: 'opacity 0.3s linear, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
                 }}
               >
-                <div className="relative w-full h-full rounded-2xl shadow-2xl overflow-hidden group border border-white/10 hover:border-[#ff5e36]/60 bg-card/85 backdrop-blur-xl transition-all duration-300">
-                  {/* Cyber glowing top accent bar */}
-                  <div className="absolute top-0 left-0 w-full h-[2.5px] bg-gradient-to-r from-[#ff5e36] via-[#f43b86] to-[#610094] z-10" />
+                <div className="relative w-full h-full rounded-2xl shadow-[0_20px_45px_-12px_rgba(0,0,0,0.85)] overflow-hidden group border border-white/[0.08] hover:border-[#ff5e36]/60 bg-[#0d0c14]/95 backdrop-blur-xl transition-all duration-300">
+                  {/* Matte top accent bar */}
+                  <div className="absolute top-0 left-0 w-full h-[2px] bg-[#ff5e36]/80 z-10" />
 
                   <img
                     src={item.photo.url}
@@ -176,10 +176,10 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
                     style={{ objectPosition: item.photo.pos || 'center' }}
                   />
 
-                  {/* Dark gradient overlay with cyber details */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent text-white flex flex-col justify-end p-4 sm:p-5">
+                  {/* Matte dark overlay with cyber details */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0b0a10] via-[#0b0a10]/65 to-transparent text-white flex flex-col justify-end p-4 sm:p-5">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-[10px] font-mono tracking-widest text-[#ff5e36] uppercase bg-black/60 px-2 py-0.5 rounded border border-[#ff5e36]/30">
+                      <span className="text-[10px] font-mono tracking-widest text-[#ff5e36] uppercase bg-[#14121c]/90 px-2 py-0.5 rounded border border-[#ff5e36]/30">
                         {item.binomial}
                       </span>
                       <span className="text-[9px] font-mono text-white/60">// SEC_0{i + 1}</span>

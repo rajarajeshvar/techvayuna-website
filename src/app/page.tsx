@@ -4,13 +4,10 @@ import { PanelReveal } from "@/components/PanelReveal";
 import { DomainShowcase } from "@/components/DomainShowcase";
 import { CoreTeamSection } from "@/components/CoreTeamSection";
 import { PastEventsTimeline } from "@/components/timeline/PastEventsTimeline";
-import { CanvasFractalGridExample } from "@/components/CanvasFractalGridBackground";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-val-bg w-full overflow-hidden">
-      {/* Interactive Canvas Fractal Grid Background with Red Theme */}
-      <CanvasFractalGridExample />
+    <main className="relative min-h-screen bg-transparent w-full overflow-hidden">
 
       {/* Premium Top Navigation */}
       <Navbar />

@@ -21,10 +21,10 @@
   width: var(--infinite-spiral-card-width);
   height: var(--infinite-spiral-card-height);
   overflow: hidden;
-  border: 1px solid rgba(244, 59, 134, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--infinite-spiral-card-radius);
-  background: rgba(17, 13, 24, 0.4);
-  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.4), 0 0 20px rgba(244, 59, 134, 0.2);
+  background: #0e0d15;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65);
   transform-style: preserve-3d;
   backface-visibility: hidden;
   will-change: transform, opacity, filter;

@@ -4,6 +4,7 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { CustomCursor } from "@/components/CustomCursor";
 import { ThemeProvider } from "@/context/ThemeContext";
+import Script from "next/script";
 import { InteractiveThemeCube } from "@/components/InteractiveThemeCube";
 
 const geistSans = Geist({
@@ -43,6 +44,9 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="stylesheet" href="/miraj-background/background.css" />
+      </head>
       <body className="min-h-full flex flex-col bg-[#0b0c10] text-[#ece8e1] overflow-x-hidden font-sans">
         <ThemeProvider>
           <CustomCursor />
@@ -51,6 +55,14 @@ export default function RootLayout({
             {children}
           </SmoothScroll>
         </ThemeProvider>
+        <Script
+          src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
+          strategy="beforeInteractive"
+        />
+        <Script
+          src="/miraj-background/background.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

@@ -301,11 +301,11 @@ export const PastEventsTimeline: React.FC = () => {
             strokeLinecap="round"
           />
 
-          {/* Active glowing path */}
+          {/* Active path */}
           <path
             ref={activePathRef}
             d={PATH_D}
-            stroke="url(#tl-grad)"
+            stroke="#ff5e36"
             strokeWidth="2.5"
             strokeLinecap="round"
             filter="url(#tl-glow)"

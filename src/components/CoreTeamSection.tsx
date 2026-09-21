@@ -479,10 +479,7 @@ export const CoreTeamSection: React.FC = () => {
   }, []);
 
   return (
-    <section id="core-team" ref={sectionRef} className="relative w-full min-h-screen bg-val-bg py-24 md:py-32 overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[1000px] h-[800px] bg-val-accent/5 blur-[150px] rounded-full pointer-events-none z-0" />
-      
+    <section id="core-team" ref={sectionRef} className="relative w-full min-h-screen bg-transparent py-24 md:py-32 overflow-hidden">
       {/* Subtle Grid Texture */}
       <div 
         className="absolute inset-0 pointer-events-none z-0 opacity-10"

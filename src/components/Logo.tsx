@@ -81,14 +81,14 @@ export const Logo: React.FC<{ className?: string; iconOnly?: boolean }> = ({
         <div className="flex flex-col ml-1 leading-none font-display skew-x-[-10deg]">
           {/* Top Line: TECH */}
           <span 
-            className="text-base md:text-lg font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-[#ff5e36] via-[#f43b86] to-[#610094]"
+            className="text-base md:text-lg font-black tracking-widest text-[#ece8e1]"
           >
             TECH
           </span>
           {/* Bottom Line: VAYUNA + Feather */}
           <div className="flex items-center gap-0.5">
             <span 
-              className="text-lg md:text-xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-[#ff5e36] via-[#f43b86] to-[#610094]"
+              className="text-lg md:text-xl font-black tracking-wider text-[#ff5e36]"
             >
               VAYUNA
             </span>

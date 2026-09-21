@@ -135,22 +135,17 @@ export const PanelReveal: React.FC = () => {
       ref={sectionRef}
       className="relative w-full min-h-screen py-16 md:py-24 flex items-center justify-center overflow-hidden bg-transparent select-none"
     >
-      {/* Ambient Radial Background Glow */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#f43b86]/8 blur-[160px]" />
-        <div className="absolute top-1/2 right-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#ff5e36]/8 blur-[160px]" />
-      </div>
 
       {/* Fully Responsive Grid Container (Fits 100% Zoom, Mobile, Tablet, PC) */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         {/* Left Column: 3D Infinite Spiral Stage */}
-        <div className="lg:col-span-6 w-full h-[420px] sm:h-[500px] lg:h-[560px] relative overflow-hidden flex items-center justify-center rounded-2xl bg-val-bg-card/30 border border-val-light/10 backdrop-blur-sm shadow-2xl">
+        <div className="lg:col-span-6 w-full h-[420px] sm:h-[500px] lg:h-[560px] relative overflow-hidden flex items-center justify-center rounded-2xl bg-[#0c0a12]/90 border border-white/[0.08] backdrop-blur-md shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85)]">
           {/* Floating HUD Indicators */}
-          <div className="absolute top-3 left-3 z-20 px-3 py-1 bg-val-bg-card/80 border border-[#ff5e36]/30 backdrop-blur-md rounded-full text-[9px] font-mono text-val-light tracking-widest uppercase flex items-center gap-2">
+          <div className="absolute top-3 left-3 z-20 px-3 py-1 bg-[#121018]/90 border border-[#ff5e36]/30 backdrop-blur-md rounded-full text-[9px] font-mono text-val-light tracking-widest uppercase flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#ff5e36] animate-ping" />
             [ 3D_SPIRAL // 8_NODES ]
           </div>
-          <div className="absolute bottom-3 right-3 z-20 px-3 py-1 bg-val-bg-card/80 border border-[#f43b86]/30 backdrop-blur-md rounded-full text-[9px] font-mono text-[#f43b86] tracking-widest uppercase animate-pulse">
+          <div className="absolute bottom-3 right-3 z-20 px-3 py-1 bg-[#121018]/90 border border-[#ff5e36]/30 backdrop-blur-md rounded-full text-[9px] font-mono text-[#ff5e36] tracking-widest uppercase animate-pulse">
             SCROLL_OR_DRAG_TO_ROTATE
           </div>
 
@@ -214,7 +209,7 @@ export const PanelReveal: React.FC = () => {
           </div>
 
           {/* Separator */}
-          <div className="w-16 h-px bg-gradient-to-r from-brand-orange via-brand-pink to-brand-purple mb-5 opacity-60" />
+          <div className="w-16 h-px bg-[#ff5e36]/50 mb-5" />
 
           {/* Closing lines — typewriter with glow */}
           <div className="space-y-1.5 mb-6 max-w-full">
@@ -238,7 +233,7 @@ export const PanelReveal: React.FC = () => {
 
           {/* Telemetry Metrics Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 w-full pt-5 border-t border-val-light/10">
-            <div className="stat-box p-3 rounded-xl bg-val-bg-card/60 border border-val-light/10 backdrop-blur-md hover:border-[#ff5e36]/40 transition-colors">
+            <div className="stat-box p-3 rounded-xl bg-[#121018]/85 border border-white/[0.08] backdrop-blur-md hover:border-[#ff5e36]/40 transition-colors">
               <div className="flex items-center gap-1.5 mb-0.5">
                 <Users className="w-3.5 h-3.5 text-[#ff5e36]" />
                 <span className="text-lg font-black font-display text-gradient-brand">500+</span>
@@ -246,15 +241,15 @@ export const PanelReveal: React.FC = () => {
               <div className="text-[9px] font-mono text-val-gray/70 uppercase tracking-wider">Innovators</div>
             </div>
 
-            <div className="stat-box p-3 rounded-xl bg-val-bg-card/60 border border-val-light/10 backdrop-blur-md hover:border-[#f43b86]/40 transition-colors">
+            <div className="stat-box p-3 rounded-xl bg-[#121018]/85 border border-white/[0.08] backdrop-blur-md hover:border-[#ff5e36]/40 transition-colors">
               <div className="flex items-center gap-1.5 mb-0.5">
-                <Trophy className="w-3.5 h-3.5 text-[#f43b86]" />
+                <Trophy className="w-3.5 h-3.5 text-[#ff5e36]" />
                 <span className="text-lg font-black font-display text-gradient-brand">50+</span>
               </div>
               <div className="text-[9px] font-mono text-val-gray/70 uppercase tracking-wider">Hackathons</div>
             </div>
 
-            <div className="stat-box p-3 rounded-xl bg-val-bg-card/60 border border-val-light/10 backdrop-blur-md hover:border-[#ff5e36]/40 transition-colors">
+            <div className="stat-box p-3 rounded-xl bg-[#121018]/85 border border-white/[0.08] backdrop-blur-md hover:border-[#ff5e36]/40 transition-colors">
               <div className="flex items-center gap-1.5 mb-0.5">
                 <Zap className="w-3.5 h-3.5 text-[#ff5e36]" />
                 <span className="text-lg font-black font-display text-gradient-brand">100%</span>
@@ -262,9 +257,9 @@ export const PanelReveal: React.FC = () => {
               <div className="text-[9px] font-mono text-val-gray/70 uppercase tracking-wider">Student-Led</div>
             </div>
 
-            <div className="stat-box p-3 rounded-xl bg-val-bg-card/60 border border-val-light/10 backdrop-blur-md hover:border-[#f43b86]/40 transition-colors">
+            <div className="stat-box p-3 rounded-xl bg-[#121018]/85 border border-white/[0.08] backdrop-blur-md hover:border-[#ff5e36]/40 transition-colors">
               <div className="flex items-center gap-1.5 mb-0.5">
-                <Cpu className="w-3.5 h-3.5 text-[#f43b86]" />
+                <Cpu className="w-3.5 h-3.5 text-[#ff5e36]" />
                 <span className="text-lg font-black font-display text-gradient-brand">24/7</span>
               </div>
               <div className="text-[9px] font-mono text-val-gray/70 uppercase tracking-wider">R&D Labs</div>
