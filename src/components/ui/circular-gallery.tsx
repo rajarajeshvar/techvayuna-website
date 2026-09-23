@@ -165,9 +165,9 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
                   transition: 'opacity 0.3s linear, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
                 }}
               >
-                <div className="relative w-full h-full rounded-2xl shadow-[0_20px_45px_-12px_rgba(0,0,0,0.85)] overflow-hidden group border border-white/[0.08] hover:border-[#ff5e36]/60 bg-[#0d0c14]/95 backdrop-blur-xl transition-all duration-300">
+                <div className="relative w-full h-full rounded-2xl shadow-[0_20px_45px_-12px_rgba(0,0,0,0.85)] overflow-hidden group border border-white/[0.08] hover:border-[#D83A60]/60 bg-[#14111A]/95 backdrop-blur-xl transition-all duration-300">
                   {/* Matte top accent bar */}
-                  <div className="absolute top-0 left-0 w-full h-[2px] bg-[#ff5e36]/80 z-10" />
+                  <div className="absolute top-0 left-0 w-full h-[2px] bg-[#D83A60]/80 z-10" />
 
                   <img
                     src={item.photo.url}
@@ -177,15 +177,15 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
                   />
 
                   {/* Matte dark overlay with cyber details */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0b0a10] via-[#0b0a10]/65 to-transparent text-white flex flex-col justify-end p-4 sm:p-5">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0D0B0F] via-[#0D0B0F]/65 to-transparent text-white flex flex-col justify-end p-4 sm:p-5">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-[10px] font-mono tracking-widest text-[#ff5e36] uppercase bg-[#14121c]/90 px-2 py-0.5 rounded border border-[#ff5e36]/30">
+                      <span className="text-[10px] font-mono tracking-widest text-[#D83A60] uppercase bg-[#14111A]/90 px-2 py-0.5 rounded border border-[#D83A60]/30">
                         {item.binomial}
                       </span>
                       <span className="text-[9px] font-mono text-white/60">// SEC_0{i + 1}</span>
                     </div>
 
-                    <h3 className="text-xl sm:text-2xl font-black font-display tracking-tight text-white group-hover:text-[#f43b86] transition-colors duration-300">
+                    <h3 className="text-xl sm:text-2xl font-black font-display tracking-tight text-white group-hover:text-[#D83A60] transition-colors duration-300">
                       {item.common}
                     </h3>
 
@@ -195,7 +195,7 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
 
                     <div className="mt-2.5 pt-2.5 border-t border-white/10 flex items-center justify-between">
                       <p className="text-[11px] font-mono text-white/70">{item.photo.by}</p>
-                      <span className="text-[10px] font-mono font-bold text-[#f43b86] tracking-wider uppercase group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                      <span className="text-[10px] font-mono font-bold text-[#D83A60] tracking-wider uppercase group-hover:translate-x-1 transition-transform flex items-center gap-1">
                         <span>INSPECT</span>
                         <span>&rarr;</span>
                       </span>

@@ -45,39 +45,43 @@ export const TimelineEventCard: React.FC<TimelineEventCardProps> = ({
       style={{ "--card-index": index, top: `${topPercent}%`, transform: "translateY(-50%)" } as React.CSSProperties}
     >
       {/* Oversized year watermark */}
-      <div className="timeline-card__year-watermark" style={{ color: "red" }} aria-hidden="true">
+      <div className="timeline-card__year-watermark" aria-hidden="true">
         {event.year}
       </div>
 
-      {/* Glass card body */}
-      <div className="timeline-card__glass">
-        {/* Animated border (SVG stroke draw) */}
-        <svg className="timeline-card__border-svg" viewBox="0 0 400 280" preserveAspectRatio="none">
-          <rect
-            className="timeline-card__border-rect"
-            x="1"
-            y="1"
-            width="398"
-            height="278"
-            rx="14"
-            ry="14"
-            fill="none"
-            strokeWidth="1"
-          />
-        </svg>
+      {/* Valorant Tactical HUD Card Body */}
+      <div className="timeline-card__glass group">
+        {/* Top Header Tactical Bar */}
+        <div className="flex items-center justify-between border-b border-white/10 pb-2.5 mb-3 font-mono text-[9px] tracking-widest text-[#C4BFC9] uppercase">
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 bg-[#D83A60] rounded-none animate-pulse" />
+            <span className="text-[#D83A60] font-bold">LOG // 0{index + 1}</span>
+            <span className="text-[#7A7584]">|</span>
+            <span className="text-white font-medium">{event.date}</span>
+          </div>
+          <span className="px-1.5 py-0.5 border border-[#D83A60]/40 bg-[#D83A60]/10 backdrop-blur-sm text-[#D83A60] text-[8px] tracking-[0.2em] font-bold">
+            ARCHIVE // {event.year}
+          </span>
+        </div>
 
         {/* Content */}
         <div className="timeline-card__content">
           {/* Main Image Gallery */}
           {allImages.length > 0 && (
             <div className="timeline-card__gallery">
-              <div className="timeline-card__image-wrapper">
+              <div className="timeline-card__image-wrapper relative overflow-hidden group/img">
                 <img 
                   src={allImages[activeImageIndex]} 
                   alt={`${event.title} gallery`} 
                   className="timeline-card__image" 
                   loading="lazy"
                 />
+                {/* Tactical targeting overlay */}
+                <div className="absolute top-2 left-2 z-10 font-mono text-[8px] text-[#D83A60] bg-black/50 backdrop-blur-sm px-1.5 py-0.5 border border-[#D83A60]/30 tracking-widest">
+                  IMG_SRC // 0{activeImageIndex + 1}
+                </div>
+                <div className="absolute bottom-2 right-2 z-10 w-3 h-3 border-r-2 border-b-2 border-[#D83A60]" />
+                <div className="absolute top-2 right-2 z-10 w-3 h-3 border-r-2 border-t-2 border-[#D83A60]" />
               </div>
               
               {allImages.length > 1 && (
@@ -100,30 +104,32 @@ export const TimelineEventCard: React.FC<TimelineEventCardProps> = ({
             </div>
           )}
 
-          {/* Date */}
-          <div className="timeline-card__date">
-            <span className="timeline-card__date-dot" />
-            {event.date}
-          </div>
-
           {/* Title */}
-          <h3 className="timeline-card__title">{event.title}</h3>
+          <h3 className="timeline-card__title font-display uppercase tracking-tight">{event.title}</h3>
 
           {/* Description */}
           <p className="timeline-card__desc">{event.description}</p>
 
-          {/* Badge */}
-          <div className="timeline-card__badge">
-            <span className="timeline-card__badge-icon">{event.badgeIcon}</span>
-            <span className="timeline-card__badge-text">{event.badge}</span>
-          </div>
+          {/* Badge & Action Bar */}
+          <div className="flex items-center justify-between pt-2 border-t border-white/5 mt-1">
+            <div className="timeline-card__badge">
+              <span className="timeline-card__badge-icon">{event.badgeIcon}</span>
+              <span className="timeline-card__badge-text">{event.badge}</span>
+            </div>
 
-          {/* Learn More */}
-          <button className="timeline-card__btn" type="button">
-            <span className="timeline-card__btn-text">Learn More</span>
-            <span className="timeline-card__btn-arrow">→</span>
-          </button>
+            {/* Learn More Tactical Action */}
+            <button className="timeline-card__btn" type="button">
+              <span className="timeline-card__btn-text">INSPECT</span>
+              <span className="timeline-card__btn-arrow">▶</span>
+            </button>
+          </div>
         </div>
+
+        {/* Tactical Corner Bracket Accents (Valorant HUD Style) */}
+        <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#D83A60] pointer-events-none" />
+        <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#D83A60] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#D83A60] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#D83A60] pointer-events-none" />
 
         {/* Dispersion particles on reveal */}
         <div className="timeline-card__particles" aria-hidden="true">

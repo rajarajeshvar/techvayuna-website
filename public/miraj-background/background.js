@@ -9,14 +9,14 @@
 
   const PALETTES = {
     crimson: {
-      fog: 0x240718,
-      top: 0x190514,
-      mid: 0x541228,
-      bot: 0xff5938,
-      ambient: 0x521a2c,
-      moonLight: 0xffc9a0,
-      duneLow: 0x381020,
-      duneHigh: 0xdb6544
+      fog: 0x1E0C14,
+      top: 0x130810,
+      mid: 0x4A1528,
+      bot: 0xC84050,
+      ambient: 0x481828,
+      moonLight: 0xF0C0A0,
+      duneLow: 0x341420,
+      duneHigh: 0xB84858
     },
     twilight: {
       fog: 0x1b0f38,
@@ -72,9 +72,9 @@
       document.body.insertBefore(veil, canvas.nextSibling);
     }
 
-    // 2. Renderer & Scene
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    // 2. Renderer & Scene (Optimized pixel ratio for butter-smooth 60-120fps)
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: "high-performance" });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.2));
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     const scene = new THREE.Scene();
@@ -119,13 +119,13 @@
     const moon = new THREE.Group();
     const moonCore = new THREE.Mesh(
       new THREE.SphereGeometry(24, 40, 40),
-      new THREE.MeshBasicMaterial({ color: 0xffb38a })
+      new THREE.MeshBasicMaterial({ color: 0xE0A088 })
     );
     moon.add(moonCore);
     for (let i = 1; i <= 3; i++) {
       const halo = new THREE.Mesh(
         new THREE.SphereGeometry(24 + i * 4.5, 32, 32),
-        new THREE.MeshBasicMaterial({ color: 0xff8e6e, transparent: true, opacity: 0.1 / i, depthWrite: false })
+        new THREE.MeshBasicMaterial({ color: 0xC07868, transparent: true, opacity: 0.07 / i, depthWrite: false })
       );
       moon.add(halo);
     }
@@ -220,7 +220,7 @@
 
       const beacon = new THREE.Mesh(
         new THREE.SphereGeometry(0.45, 8, 8),
-        new THREE.MeshBasicMaterial({ color: 0xff8e6e })
+        new THREE.MeshBasicMaterial({ color: 0xB06858 })
       );
       beacon.position.y = h + h * 0.16 + 0.8;
       beacon.userData.beacon = true;
@@ -265,10 +265,10 @@
       m.rotation.y = i * 0.32;
       spire.add(m);
     }
-    const needle = new THREE.Mesh(new THREE.ConeGeometry(0.8, 16, 6), new THREE.MeshBasicMaterial({ color: 0xffd9a0 }));
+    const needle = new THREE.Mesh(new THREE.ConeGeometry(0.8, 16, 6), new THREE.MeshBasicMaterial({ color: 0xC8A080 }));
     needle.position.y = segs * 9.5 + 8;
     spire.add(needle);
-    const tip = new THREE.Mesh(new THREE.SphereGeometry(0.9, 10, 10), new THREE.MeshBasicMaterial({ color: 0xff8e6e }));
+    const tip = new THREE.Mesh(new THREE.SphereGeometry(0.9, 10, 10), new THREE.MeshBasicMaterial({ color: 0xB06858 }));
     tip.position.y = segs * 9.5 + 16.5;
     tip.userData.beacon = true;
     spire.add(tip);
@@ -345,7 +345,7 @@
     for (let i = 0; i < 34; i++) {
       const warm = Math.random() < 0.7;
       const m = new THREE.Mesh(lanternGeo, new THREE.MeshBasicMaterial({
-        color: warm ? 0xffc488 : 0x7df0dc, transparent: true, opacity: 0.9
+        color: warm ? 0xD8A078 : 0x60B0A0, transparent: true, opacity: 0.75
       }));
       m.position.set((Math.random() * 2 - 1) * 90, Math.random() * 48, -110 + Math.random() * 150);
       m.userData = { v: 0.012 + Math.random() * 0.03, sway: Math.random() * Math.PI * 2 };
@@ -365,7 +365,7 @@
       const g = new THREE.BufferGeometry();
       g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
       haze = new THREE.Points(g, new THREE.PointsMaterial({
-        color: 0xe0a368, size: 0.55, transparent: true, opacity: 0.45, depthWrite: false, blending: THREE.AdditiveBlending
+        color: 0xA05050, size: 0.55, transparent: true, opacity: 0.32, depthWrite: false, blending: THREE.NormalBlending
       }));
       scene.add(haze);
     }
@@ -384,10 +384,10 @@
     const tgtPos = curPos.clone(), tgtLook = curLook.clone();
     const ease = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
-    let scrollP = 0, smoothP = 0;
+    let scrollP = 0, smoothP = 0, maxScroll = 0;
     function readScroll() {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      scrollP = max > 10 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      scrollP = maxScroll > 10 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
     }
     window.addEventListener("scroll", readScroll, { passive: true });
     readScroll();
@@ -423,12 +423,9 @@
     let animId;
     function tick() {
       animId = requestAnimationFrame(tick);
-      readScroll();
       const t = clock.getElapsedTime();
       const amp = REDUCED ? 0.25 : 1;
 
-      // Check if page has scroll; if not, use slow ambient pan
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       if (maxScroll <= 10) {
         // Subtle ambient oscillation
         const ambientP = 0.5 + 0.35 * Math.sin(t * 0.08);

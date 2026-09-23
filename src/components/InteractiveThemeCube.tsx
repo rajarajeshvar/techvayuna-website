@@ -90,35 +90,41 @@ export const InteractiveThemeCube: React.FC = () => {
   // "Look Into Me" Screen Mouse-Gaze Tracking:
   // Subtly turns the cube's face to track the user's cursor across the screen
   useEffect(() => {
+    let ticking = false;
     const handleGlobalMouseMove = (e: MouseEvent) => {
-      if (isPressed) return;
+      if (isPressed || ticking) return;
       if (!containerRef.current) return;
+      ticking = true;
 
-      const rect = containerRef.current.getBoundingClientRect();
-      const cubeCenterX = rect.left + rect.width / 2;
-      const cubeCenterY = rect.top + rect.height / 2;
+      requestAnimationFrame(() => {
+        ticking = false;
+        if (!containerRef.current) return;
+        const rect = containerRef.current.getBoundingClientRect();
+        const cubeCenterX = rect.left + rect.width / 2;
+        const cubeCenterY = rect.top + rect.height / 2;
 
-      // Vector from cube to cursor
-      const dx = (e.clientX - cubeCenterX) / window.innerWidth;
-      const dy = (e.clientY - cubeCenterY) / window.innerHeight;
+        // Vector from cube to cursor
+        const dx = (e.clientX - cubeCenterX) / window.innerWidth;
+        const dy = (e.clientY - cubeCenterY) / window.innerHeight;
 
-      // Subtle look-at angles (max ~14 degrees)
-      const lookY = Math.max(-14, Math.min(14, dx * 22));
-      const lookX = Math.max(-14, Math.min(14, -dy * 22));
+        // Subtle look-at angles (max ~14 degrees)
+        const lookY = Math.max(-14, Math.min(14, dx * 22));
+        const lookX = Math.max(-14, Math.min(14, -dy * 22));
 
-      gazeRef.current = { x: lookX, y: lookY };
+        gazeRef.current = { x: lookX, y: lookY };
 
-      const target = FACE_ROTATIONS[themeIndex] || FACE_ROTATIONS[0];
-      const destX = target.rx + lookX;
-      const destY = target.ry + lookY;
+        const target = FACE_ROTATIONS[themeIndex] || FACE_ROTATIONS[0];
+        const destX = target.rx + lookX;
+        const destY = target.ry + lookY;
 
-      gsap.to(rotRef.current, {
-        x: destX,
-        y: destY,
-        duration: 0.4,
-        ease: "power2.out",
-        overwrite: "auto",
-        onUpdate: () => setTransform(rotRef.current.x, rotRef.current.y),
+        gsap.to(rotRef.current, {
+          x: destX,
+          y: destY,
+          duration: 0.35,
+          ease: "power2.out",
+          overwrite: "auto",
+          onUpdate: () => setTransform(rotRef.current.x, rotRef.current.y),
+        });
       });
     };
 
@@ -241,7 +247,7 @@ export const InteractiveThemeCube: React.FC = () => {
     >
       {/* Sleek, minimal HUD badge */}
       <div
-        className={`mb-1.5 px-2 py-0.5 rounded bg-[#07070a]/90 backdrop-blur-md border flex items-center gap-1.5 transition-all duration-300 ${
+        className={`mb-1.5 px-2 py-0.5 rounded bg-[#0D0B0F]/90 backdrop-blur-md border flex items-center gap-1.5 transition-all duration-300 ${
           isPressed
             ? "scale-105 border-white shadow-[0_0_12px_rgba(255,255,255,0.4)]"
             : isHovered
@@ -339,7 +345,7 @@ export const InteractiveThemeCube: React.FC = () => {
                   transformStyle: "preserve-3d",
                   backfaceVisibility: "hidden",
                   WebkitBackfaceVisibility: "hidden",
-                  backgroundColor: "#0c0d14",
+                  backgroundColor: "#14111A",
                   border: `1.5px solid ${isActive ? "#ffffff" : face.color}`,
                   boxShadow: isActive
                     ? `inset 0 0 12px ${face.color}, 0 0 10px ${face.color}`

@@ -13,9 +13,9 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-/* ──────────────────────────────────────────────
-   SVG PATH — smooth phoenix flight curves
-   ────────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   SVG PATH â€” smooth phoenix flight curves
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const EVENTS = TIMELINE_EVENTS;
 const EVENT_COUNT = EVENTS.length;
 // Vertical spacing between events in the SVG coordinate space
@@ -86,9 +86,9 @@ function getNodePositions(): { x: number; y: number }[] {
 const PATH_D = buildPathD();
 const NODE_POSITIONS = getNodePositions();
 
-/* ──────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    MAIN COMPONENT
-   ────────────────────────────────────────────── */
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 export const PastEventsTimeline: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -241,12 +241,12 @@ export const PastEventsTimeline: React.FC = () => {
       className="timeline-section"
       style={{ height: `${SVG_HEIGHT + 200}px` }}
     >
-      {/* ── Background ── */}
+      {/* â”€â”€ Background â”€â”€ */}
       <div data-speed="0.5" className="timeline-section__bg">
         <TimelineEmbers />
       </div>
 
-      {/* ── Section Header ── */}
+      {/* â”€â”€ Section Header â”€â”€ */}
       <div className="timeline-section__header">
         <div className="timeline-section__tag">
           <span className="timeline-section__tag-label">SEC_04</span>
@@ -259,7 +259,7 @@ export const PastEventsTimeline: React.FC = () => {
         <div className="timeline-section__separator" />
       </div>
 
-      {/* ── SVG Timeline Path + Nodes ── */}
+      {/* â”€â”€ SVG Timeline Path + Nodes â”€â”€ */}
       <div className="timeline-section__canvas">
         <svg
           ref={svgRef}
@@ -271,9 +271,9 @@ export const PastEventsTimeline: React.FC = () => {
           {/* Gradient for active path */}
           <defs>
             <linearGradient id="tl-grad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#ff5e36" />
-              <stop offset="50%" stopColor="#f43b86" />
-              <stop offset="100%" stopColor="#fbbf24" />
+              <stop offset="0%" stopColor="#D83A60" />
+              <stop offset="70%" stopColor="#D83A60" />
+              <stop offset="100%" stopColor="#88207C" />
             </linearGradient>
             <filter id="tl-glow">
               <feGaussianBlur stdDeviation="6" result="blur" />
@@ -305,7 +305,7 @@ export const PastEventsTimeline: React.FC = () => {
           <path
             ref={activePathRef}
             d={PATH_D}
-            stroke="#ff5e36"
+            stroke="#D83A60"
             strokeWidth="2.5"
             strokeLinecap="round"
             filter="url(#tl-glow)"
@@ -317,13 +317,13 @@ export const PastEventsTimeline: React.FC = () => {
             cx={PATH_X_CENTER}
             cy={100}
             r="8"
-            fill="#ff5e36"
+            fill="#D83A60"
             filter="url(#tl-pulse-glow)"
             opacity="0.9"
           />
         </svg>
 
-        {/* ── Energy Core Nodes (percentage-positioned) ── */}
+        {/* â”€â”€ Energy Core Nodes (percentage-positioned) â”€â”€ */}
         {NODE_POSITIONS.map((pos, i) => (
           <TimelineNode
             key={EVENTS[i].id}
@@ -336,7 +336,7 @@ export const PastEventsTimeline: React.FC = () => {
           />
         ))}
 
-        {/* ── Event Cards ── */}
+        {/* â”€â”€ Event Cards â”€â”€ */}
         {EVENTS.map((event, i) => {
           const isLeft = i % 2 === 0;
           const topPercent = (NODE_POSITIONS[i].y / SVG_HEIGHT) * 100;
@@ -355,10 +355,10 @@ export const PastEventsTimeline: React.FC = () => {
         })}
       </div>
 
-      {/* ── Finale ── */}
+      {/* â”€â”€ Finale â”€â”€ */}
       <TimelineFinale isActive={finaleActive} />
 
-      {/* ── Footer mark ── */}
+      {/* â”€â”€ Footer mark â”€â”€ */}
       <div className="timeline-section__footer">
         <span className="timeline-section__footer-text">
           [ PHOENIX_TRAIL_COMPLETE ]

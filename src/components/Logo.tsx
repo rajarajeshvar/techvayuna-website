@@ -6,9 +6,8 @@ export const PhoenixIcon: React.FC<{ className?: string }> = ({ className = "w-1
   <svg viewBox="0 0 100 100" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="logo-brand-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#ff5e36" />
-        <stop offset="50%" stopColor="#f43b86" />
-        <stop offset="100%" stopColor="#610094" />
+        <stop offset="0%" stopColor="#D83A60" />
+        <stop offset="100%" stopColor="#D83A60" />
       </linearGradient>
     </defs>
     
@@ -48,9 +47,8 @@ export const FeatherIcon: React.FC<{ className?: string }> = ({ className = "w-6
   <svg viewBox="0 0 100 100" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="feather-brand-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#ff5e36" />
-        <stop offset="50%" stopColor="#f43b86" />
-        <stop offset="100%" stopColor="#610094" />
+        <stop offset="0%" stopColor="#D83A60" />
+        <stop offset="100%" stopColor="#D83A60" />
       </linearGradient>
     </defs>
     <path 
@@ -81,14 +79,14 @@ export const Logo: React.FC<{ className?: string; iconOnly?: boolean }> = ({
         <div className="flex flex-col ml-1 leading-none font-display skew-x-[-10deg]">
           {/* Top Line: TECH */}
           <span 
-            className="text-base md:text-lg font-black tracking-widest text-[#ece8e1]"
+            className="text-base md:text-lg font-black tracking-widest text-[#E8E4DD]"
           >
             TECH
           </span>
           {/* Bottom Line: VAYUNA + Feather */}
           <div className="flex items-center gap-0.5">
             <span 
-              className="text-lg md:text-xl font-black tracking-wider text-[#ff5e36]"
+              className="text-lg md:text-xl font-black tracking-wider text-[#D83A60]"
             >
               VAYUNA
             </span>

@@ -23,6 +23,9 @@ export const Navbar: React.FC = () => {
         <a href="#past-events" className="hover:text-val-red transition-colors flex items-center gap-1.5 py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-val-red hover:after:w-full after:transition-all">
           <span className="text-val-red text-[10px]">//</span> PAST EVENTS
         </a>
+        <a href="#contact" className="hover:text-val-red transition-colors flex items-center gap-1.5 py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-val-red hover:after:w-full after:transition-all">
+          <span className="text-val-red text-[10px]">//</span> CONTACT
+        </a>
       </div>
 
       {/* Right Side Stats */}
@@ -32,9 +35,9 @@ export const Navbar: React.FC = () => {
           <span className="text-xs font-mono font-bold text-val-blue animate-pulse">ACTIVE // ONLINE</span>
         </div>
         <div className="h-8 w-[1px] bg-val-light/10 hidden sm:block" />
-        <button className="px-4 py-1.5 bg-transparent border border-val-red/50 hover:bg-val-red hover:text-val-dark text-val-red text-xs font-black tracking-widest uppercase transition-all duration-300 clip-corner-sm font-mono">
+        <a href="#contact" className="px-4 py-1.5 bg-transparent border border-val-red/50 hover:bg-val-red hover:text-val-dark text-val-red text-xs font-black tracking-widest uppercase transition-all duration-300 clip-corner-sm font-mono flex items-center justify-center">
           INITIATE
-        </button>
+        </a>
       </div>
     </nav>
   );

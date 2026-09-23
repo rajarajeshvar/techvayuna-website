@@ -6,6 +6,7 @@ import { CustomCursor } from "@/components/CustomCursor";
 import { ThemeProvider } from "@/context/ThemeContext";
 import Script from "next/script";
 import { InteractiveThemeCube } from "@/components/InteractiveThemeCube";
+import { AsciiTexture } from "@/components/AsciiTexture";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,10 +48,11 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="/miraj-background/background.css" />
       </head>
-      <body className="min-h-full flex flex-col bg-[#0b0c10] text-[#ece8e1] overflow-x-hidden font-sans">
+      <body className="min-h-full flex flex-col bg-[#0D0B0F] text-[#E8E4DD] overflow-x-hidden font-sans">
         <ThemeProvider>
           <CustomCursor />
           <InteractiveThemeCube />
+          <AsciiTexture />
           <SmoothScroll>
             {children}
           </SmoothScroll>

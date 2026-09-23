@@ -104,7 +104,7 @@ export const HeroSection: React.FC = () => {
         <div 
           ref={treeRef1}
           data-speed="0.2"
-          className="absolute bottom-0 left-[-50px] w-[150vw] h-[50vh] opacity-40 bg-gradient-to-t from-[#3d0000] to-[#ff2a00]"
+          className="absolute bottom-0 left-[-50px] w-[150vw] h-[50vh] opacity-40 bg-gradient-to-t from-[#2A0A12] to-[#D83A60]"
           style={{ 
             WebkitMaskImage: "url('https://lottie.host/5c1921cf-b0aa-4b98-83a3-1aa952f789e6/rueynWTPCm.svg')",
             WebkitMaskSize: "300px auto",
@@ -120,7 +120,7 @@ export const HeroSection: React.FC = () => {
         <div 
           ref={treeRef2}
           data-speed="0.6"
-          className="absolute -bottom-10 left-[-100px] w-[150vw] h-[60vh] opacity-70 bg-gradient-to-t from-[#5c0000] to-[#ff5e36]"
+          className="absolute -bottom-10 left-[-100px] w-[150vw] h-[60vh] opacity-70 bg-gradient-to-t from-[#3A0C18] to-[#D83A60]"
           style={{ 
             WebkitMaskImage: "url('https://lottie.host/5c1921cf-b0aa-4b98-83a3-1aa952f789e6/rueynWTPCm.svg')",
             WebkitMaskSize: "450px auto",
@@ -136,7 +136,7 @@ export const HeroSection: React.FC = () => {
         <div 
           ref={treeRef3}
           data-speed="1.1"
-          className="absolute -bottom-20 left-[-150px] w-[150vw] h-[70vh] opacity-90 drop-shadow-[0_0_15px_rgba(255,94,54,0.3)] bg-gradient-to-t from-[#1a0000] via-[#8a0000] to-[#ff5e36]"
+          className="absolute -bottom-20 left-[-150px] w-[150vw] h-[70vh] opacity-90 drop-shadow-[0_0_10px_rgba(216,58,96,0.2)] bg-gradient-to-t from-[#14080E] via-[#5A1830] to-[#D83A60]"
           style={{ 
             WebkitMaskImage: "url('https://lottie.host/5c1921cf-b0aa-4b98-83a3-1aa952f789e6/rueynWTPCm.svg')",
             WebkitMaskSize: "600px auto",
@@ -172,7 +172,7 @@ export const HeroSection: React.FC = () => {
             ref={phoenixRef}
             src="https://lottie.host/868902d8-2ea0-4537-a9f9-7de6896fce86/wmLLX1SXsI.svg"
             alt="Phoenix"
-            className="w-64 h-64 md:w-80 md:h-80 mt-12 mb-6 object-contain drop-shadow-[0_0_30px_rgba(244,59,134,0.3)]"
+            className="w-64 h-64 md:w-80 md:h-80 mt-12 mb-6 object-contain drop-shadow-[0_0_20px_rgba(216,58,96,0.2)]"
           />
           <h1
             className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tighter uppercase leading-[0.8] font-sans text-val-light max-w-4xl text-center"
@@ -203,7 +203,7 @@ export const HeroSection: React.FC = () => {
       </div>
 
       {/* Tech border details */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-brand-orange via-brand-pink to-brand-purple opacity-40" />
+      <div className="absolute bottom-0 left-0 w-full h-[2px] bg-brand-pink opacity-30" />
     </section>
   );
 };

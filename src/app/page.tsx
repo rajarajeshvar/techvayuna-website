@@ -4,6 +4,7 @@ import { PanelReveal } from "@/components/PanelReveal";
 import { DomainShowcase } from "@/components/DomainShowcase";
 import { CoreTeamSection } from "@/components/CoreTeamSection";
 import { PastEventsTimeline } from "@/components/timeline/PastEventsTimeline";
+import { ContactSection } from "@/components/ContactSection";
 
 export default function Home() {
   return (
@@ -26,6 +27,9 @@ export default function Home() {
 
       {/* Section 4: Past Events Timeline */}
       <PastEventsTimeline />
+
+      {/* Section 5: Valorant Tactical Contact Uplink */}
+      <ContactSection />
     </main>
   );
 }

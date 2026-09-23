@@ -119,7 +119,7 @@ const EmberParticles: React.FC = () => {
         if (p.x > canvas.width + 10) p.x = -10;
 
         ctx.beginPath();
-        ctx.fillStyle = `rgba(255, 94, 54, ${p.opacity})`;
+        ctx.fillStyle = `rgba(216, 58, 96, ${p.opacity})`;
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
         
@@ -167,90 +167,109 @@ const TeamRow: React.FC<TeamRowProps> = ({ member, index, onPlayAudio, playingId
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Base parallax effect on scroll
-      gsap.to(introRef.current, {
-        y: -20,
-        ease: "none",
-        scrollTrigger: {
-          trigger: rowRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
+      const statusIndicator = introRef.current?.querySelector(".agent-status-badge");
+      const statusText = introRef.current?.querySelector(".agent-status-text");
+      const statusDot = introRef.current?.querySelector(".agent-status-dot");
+      const scanReticle = imgRef.current?.querySelector(".agent-scan-reticle");
+
+      // Initial standby / queueing state before reaching trigger
+      gsap.set([introRef.current, imgRef.current], {
+        opacity: 0.65,
+        scale: 0.96,
+        borderColor: "rgba(255, 255, 255, 0.08)",
+        boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
       });
 
-      // Layered text parallax
-      const title = introRef.current?.querySelector(".parallax-title");
-      const role = introRef.current?.querySelector(".parallax-role");
-      const tagline = introRef.current?.querySelector(".parallax-tagline");
-
-      if (title) {
-        gsap.to(title, {
-          y: -60,
-          ease: "none",
-          scrollTrigger: {
-            trigger: rowRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
+      if (scanReticle) {
+        gsap.set(scanReticle, { opacity: 0.2 });
       }
 
-      if (role) {
-        gsap.to(role, {
-          y: -40,
-          ease: "none",
-          scrollTrigger: {
-            trigger: rowRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-      }
-
-      if (tagline) {
-        gsap.to(tagline, {
-          y: -10,
-          ease: "none",
-          scrollTrigger: {
-            trigger: rowRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-      }
-
-      gsap.to(imgRef.current, {
-        y: 40,
-        ease: "none",
-        scrollTrigger: {
-          trigger: rowRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-
-      // Entry animation
-      gsap.fromTo(
-        [introRef.current, imgRef.current],
-        { opacity: 0, scale: 0.95 },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 1,
-          ease: "power2.out",
-          stagger: 0.2,
-          scrollTrigger: {
-            trigger: rowRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
+      // Snappy Queue Pop / Perk Up Animation Function (like League of Legends / Valorant queue ready check)
+      const triggerQueuePop = () => {
+        const sweepElements = rowRef.current?.querySelectorAll(".queue-pop-sweep");
+        if (sweepElements && sweepElements.length > 0) {
+          gsap.fromTo(
+            sweepElements,
+            { x: "-120%", opacity: 0.8 },
+            { x: "140%", opacity: 0, duration: 0.65, ease: "power2.out" }
+          );
         }
-      );
+
+        const tl = gsap.timeline();
+
+        // 1. Snappy PERK UP / EXCITED POP (Pure hardware-accelerated transform + opacity)
+        tl.to([introRef.current, imgRef.current], {
+          opacity: 1,
+          scale: 1.045, // Excited surge!
+          borderColor: "#D83A60",
+          boxShadow: "0 0 45px rgba(216, 58, 96, 0.65), 0 20px 50px rgba(0,0,0,0.9)",
+          duration: 0.22,
+          ease: "power3.out",
+          onStart: () => {
+            if (statusText) statusText.textContent = "MATCH FOUND // LOCKED IN";
+            if (statusIndicator) {
+              statusIndicator.className =
+                "agent-status-badge flex items-center gap-1.5 px-2.5 py-0.5 border border-[#D83A60] bg-[#D83A60] text-[#0D0B0F] text-[9px] font-black font-mono tracking-wider transition-colors shadow-[0_0_20px_rgba(216,58,96,0.8)]";
+            }
+            if (statusDot) {
+              statusDot.className = "agent-status-dot w-2 h-2 bg-white rounded-none animate-ping";
+            }
+            if (scanReticle) {
+              gsap.to(scanReticle, { opacity: 1, duration: 0.2 });
+            }
+          },
+        })
+        // 2. Smoothly settle back to normal resting deployed state right after perking up
+        .to([introRef.current, imgRef.current], {
+          scale: 1.0, // Back to standard resting scale
+          borderColor: "rgba(255, 255, 255, 0.15)",
+          boxShadow: "0 24px 60px -15px rgba(0,0,0,0.85), inset 0 0 25px rgba(216, 58, 96, 0.05)",
+          duration: 0.45,
+          ease: "back.out(1.3)",
+          onComplete: () => {
+            if (statusText) statusText.textContent = "COMBAT READY // DEPLOYED";
+            if (statusIndicator) {
+              statusIndicator.className =
+                "agent-status-badge flex items-center gap-1.5 px-2.5 py-0.5 border border-[#D83A60]/40 bg-[#D83A60]/15 text-[#D83A60] text-[9px] font-bold font-mono transition-colors shadow-[0_0_12px_rgba(216,58,96,0.3)]";
+            }
+            if (statusDot) {
+              statusDot.className = "agent-status-dot w-2 h-2 bg-[#D83A60] rounded-none animate-ping";
+            }
+          },
+        });
+      };
+
+      // Reset to standby when scrolled back above
+      const resetToStandby = () => {
+        gsap.to([introRef.current, imgRef.current], {
+          opacity: 0.65,
+          scale: 0.96,
+          borderColor: "rgba(255, 255, 255, 0.08)",
+          boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+          duration: 0.35,
+          ease: "power2.out",
+        });
+
+        if (statusText) statusText.textContent = "STANDBY // QUEUEING";
+        if (statusIndicator) {
+          statusIndicator.className =
+            "agent-status-badge flex items-center gap-1.5 px-2.5 py-0.5 border border-white/10 bg-white/5 text-[#B5B0BC] text-[9px] font-bold font-mono transition-colors";
+        }
+        if (statusDot) {
+          statusDot.className = "agent-status-dot w-2 h-2 bg-val-gray/40 rounded-none";
+        }
+        if (scanReticle) {
+          gsap.to(scanReticle, { opacity: 0.2, duration: 0.2 });
+        }
+      };
+
+      ScrollTrigger.create({
+        trigger: rowRef.current,
+        start: "top 78%",
+        onEnter: () => triggerQueuePop(),
+        onEnterBack: () => triggerQueuePop(),
+        onLeaveBack: () => resetToStandby(),
+      });
     }, rowRef);
 
     return () => ctx.revert();
@@ -295,45 +314,86 @@ const TeamRow: React.FC<TeamRowProps> = ({ member, index, onPlayAudio, playingId
   const IntroBox = (
     <div
       ref={introRef}
-      className="relative flex-1 p-8 md:p-12 transition-all duration-500 flex flex-col justify-center perspective-[1000px]"
+      className="relative flex-1 p-6 md:p-10 transition-all duration-500 flex flex-col justify-center perspective-[1000px] border border-white/15 bg-[#120E18]/65 backdrop-blur-md rounded-none clip-corner-sm overflow-hidden"
+      style={{
+        boxShadow: "0 24px 60px -15px rgba(0,0,0,0.85), inset 0 0 25px rgba(216, 58, 96, 0.05)",
+      }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
+      {/* Tactical Queue Pop Light Sweep */}
+      <div className="queue-pop-sweep absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-[#D83A60]/35 to-transparent -translate-x-full z-20 skew-x-12" />
+
+      {/* Top Telemetry Header */}
+      <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-6 font-mono text-[10px] tracking-widest text-[#C4BFC9] uppercase">
+        <div className="flex items-center gap-2">
+          <span className="agent-status-dot w-2 h-2 bg-[#D83A60] rounded-none animate-ping" />
+          <span className="text-[#D83A60] font-bold">AGENT // {member.number}</span>
+          <span className="text-[#6A6675]">|</span>
+          <span className="text-white font-medium">CLASS // LEADERSHIP</span>
+        </div>
+        <div className="agent-status-badge flex items-center gap-1.5 px-2.5 py-0.5 border border-[#D83A60]/40 text-[#D83A60] text-[9px] font-bold">
+          <span className="agent-status-text">COMBAT READY // DEPLOYED</span>
+        </div>
+      </div>
+
       <div ref={introContentRef} className="flex flex-col h-full w-full justify-center relative">
-        {/* Number line */}
-        <div className="flex items-center gap-4 mb-6">
-          <span className="text-val-accent font-mono text-xl opacity-80">{member.number}</span>
-          <div className="h-[1px] w-12 bg-val-accent/50" />
+        <div className="flex items-center gap-2 mb-2 font-mono text-xs text-[#D83A60] tracking-[0.25em] font-bold uppercase select-none">
+          <span className="w-1.5 h-1.5 bg-[#D83A60]" />
+          <span>CODENAME</span>
         </div>
 
-        <h3 className="parallax-title text-3xl md:text-4xl font-bold text-white tracking-wide mb-2 uppercase text-glow-white">
+        <h3 className="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight mb-3 uppercase font-display">
           {member.name}
         </h3>
-        <div className="parallax-role text-val-accent font-semibold text-sm md:text-base tracking-widest uppercase mb-6 text-glow-red">
-          {member.role}
+        
+        <div className="inline-block text-xs md:text-sm font-mono tracking-[0.2em] uppercase mb-5 px-2.5 py-1 bg-[#D83A60]/15 text-[#D83A60] border border-[#D83A60]/40 w-fit">
+          ROLE // {member.role}
         </div>
         
-        <p className="parallax-tagline text-white/70 leading-relaxed font-light text-sm md:text-base max-w-md mb-10">
+        <p className="text-white font-normal leading-relaxed font-sans text-sm md:text-base max-w-lg mb-8 border-l-2 border-[#D83A60]/50 pl-4 py-1">
           {member.tagline}
         </p>
 
-        {/* Socials */}
-        <div className="flex items-center gap-4 mt-auto">
-          {member.socials.linkedin && (
-            <a href={member.socials.linkedin} className="flex items-center justify-center w-10 h-10 rounded-full border border-white/20 text-white/60 hover:text-val-accent hover:border-val-accent hover:bg-val-accent/10 transition-all">
-              <Link size={16} />
-            </a>
-          )}
-          {member.socials.instagram && (
-            <a href={member.socials.instagram} className="flex items-center justify-center w-10 h-10 rounded-full border border-white/20 text-white/60 hover:text-val-accent hover:border-val-accent hover:bg-val-accent/10 transition-all">
-              <Globe size={16} />
-            </a>
-          )}
-          {member.socials.github && (
-            <a href={member.socials.github} className="flex items-center justify-center w-10 h-10 rounded-full border border-white/20 text-white/60 hover:text-val-accent hover:border-val-accent hover:bg-val-accent/10 transition-all">
-              <Code size={16} />
-            </a>
-          )}
+        {/* Tactical Stencil Specs */}
+        <div className="grid grid-cols-2 gap-3 mb-8 max-w-md font-mono text-[10px] uppercase">
+          <div className="p-2 border border-white/10 bg-white/[0.04] backdrop-blur-sm">
+            <div className="text-[#B5B0BC]">CLEARANCE</div>
+            <div className="text-white font-bold tracking-wider">LEVEL 05 // OMNI</div>
+          </div>
+          <div className="p-2 border border-white/10 bg-white/[0.04] backdrop-blur-sm">
+            <div className="text-[#B5B0BC]">DEPLOYMENT</div>
+            <div className="text-[#D83A60] font-bold tracking-wider">ACTIVE PROTOCOL</div>
+          </div>
+        </div>
+
+        {/* Socials & Audio Action */}
+        <div className="flex items-center justify-between gap-4 mt-auto pt-4 border-t border-white/10">
+          <div className="flex items-center gap-3">
+            {member.socials.linkedin && (
+              <a href={member.socials.linkedin} className="flex items-center justify-center w-9 h-9 border border-white/20 text-white hover:text-[#D83A60] hover:border-[#D83A60] hover:bg-[#D83A60]/10 transition-all clip-corner-sm">
+                <Link size={14} />
+              </a>
+            )}
+            {member.socials.instagram && (
+              <a href={member.socials.instagram} className="flex items-center justify-center w-9 h-9 border border-white/20 text-white hover:text-[#D83A60] hover:border-[#D83A60] hover:bg-[#D83A60]/10 transition-all clip-corner-sm">
+                <Globe size={14} />
+              </a>
+            )}
+            {member.socials.github && (
+              <a href={member.socials.github} className="flex items-center justify-center w-9 h-9 border border-white/20 text-white hover:text-[#D83A60] hover:border-[#D83A60] hover:bg-[#D83A60]/10 transition-all clip-corner-sm">
+                <Code size={14} />
+              </a>
+            )}
+          </div>
+
+          <button
+            onClick={() => onPlayAudio(member.id, member.audioSrc)}
+            className="flex items-center gap-2 px-3.5 py-1.5 border border-[#D83A60] bg-[#D83A60]/20 hover:bg-[#D83A60] hover:text-[#0D0B0F] text-[#D83A60] text-xs font-mono font-bold tracking-wider uppercase transition-all clip-corner-sm cursor-pointer"
+          >
+            <span className="w-1.5 h-1.5 bg-current rounded-full" />
+            <span>{isPlaying ? "HALT INTRO" : "PLAY VOICE"}</span>
+          </button>
         </div>
       </div>
     </div>
@@ -342,36 +402,68 @@ const TeamRow: React.FC<TeamRowProps> = ({ member, index, onPlayAudio, playingId
   const ImageBox = (
     <div
       ref={imgRef}
-      className={`relative flex-1 aspect-square md:aspect-auto md:h-[450px] transition-all duration-500 flex items-center justify-center cursor-pointer group overflow-hidden ${isPlaying ? 'opacity-100' : 'opacity-80 hover:opacity-100'}`}
+      className={`relative flex-1 aspect-square md:aspect-auto md:h-[500px] transition-all duration-500 flex items-center justify-center cursor-pointer group overflow-hidden border border-white/15 bg-[#14111A]/65 backdrop-blur-md clip-corner-sm ${isPlaying ? 'ring-2 ring-[#D83A60]' : 'hover:border-[#D83A60]/60'}`}
       onClick={() => onPlayAudio(member.id, member.audioSrc)}
     >
+      {/* Tactical Queue Pop Light Sweep */}
+      <div className="queue-pop-sweep absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-[#D83A60]/35 to-transparent -translate-x-full z-20 skew-x-12" />
+      {/* Background Valorant Grid Pattern & Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0D0B0F]/90 via-transparent to-[#D83A60]/10 z-0" />
+      <div 
+        className="absolute inset-0 opacity-15 pointer-events-none"
+        style={{
+          backgroundImage: "linear-gradient(rgba(216, 58, 96, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(216, 58, 96, 0.3) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+        }}
+      />
+
+      {/* Tactical Agent Background Silhouette Watermark */}
+      <div className="absolute -right-8 -bottom-10 font-display font-black text-8xl md:text-9xl text-white/[0.04] pointer-events-none select-none tracking-tighter">
+        {member.number}
+      </div>
+
       {member.image ? (
         <>
           <img 
             src={member.image} 
             alt={member.name} 
-            className="absolute inset-0 w-full h-full object-cover z-0 grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" 
+            className="absolute inset-0 w-full h-full object-cover z-0 grayscale contrast-125 opacity-75 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" 
           />
-          <div className="absolute inset-0 z-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
+          <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#0D0B0F] via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500" />
         </>
       ) : null}
 
-      {/* Content */}
+      {/* Tactical HUD Overlay Brackets */}
+      <div className="absolute top-4 left-4 z-10 w-4 h-4 border-t-2 border-l-2 border-[#D83A60]" />
+      <div className="absolute top-4 right-4 z-10 w-4 h-4 border-t-2 border-r-2 border-[#D83A60]" />
+      <div className="absolute bottom-4 left-4 z-10 w-4 h-4 border-b-2 border-l-2 border-[#D83A60]" />
+      <div className="absolute bottom-4 right-4 z-10 w-4 h-4 border-b-2 border-r-2 border-[#D83A60]" />
+
+      {/* Target Crosshair Badge */}
+      <div className="agent-scan-reticle absolute top-4 left-10 z-10 font-mono text-[9px] text-[#D83A60] tracking-widest uppercase transition-opacity">
+        LOC // RADAR_0{member.number}
+      </div>
+
+      {/* Center Initials if no image */}
       <div className="relative z-10 flex flex-col items-center">
         {!member.image && (
-          <span className="text-7xl font-bold text-white/90 drop-shadow-[0_0_15px_rgba(255,94,54,0.8)] tracking-widest mb-4">
-            {member.initials}
-          </span>
+          <div className="relative mb-4 flex items-center justify-center">
+            <span className="text-8xl md:text-9xl font-black font-display text-white/90 tracking-widest drop-shadow-[0_0_25px_rgba(216,58,96,0.6)] group-hover:scale-110 transition-transform duration-500">
+              {member.initials}
+            </span>
+            <div className="absolute -inset-4 border border-[#D83A60]/30 rounded-full animate-spin pointer-events-none" style={{ animationDuration: "12s" }} />
+          </div>
         )}
-        <span className={`text-xs font-mono uppercase tracking-[0.3em] transition-colors duration-300 ${member.image ? 'text-white/80 group-hover:text-white mt-auto pt-40' : 'text-val-accent/70'}`}>
-          {isPlaying ? "Playing Intro..." : "Play Intro"}
-        </span>
+
+        <div className={`mt-auto px-4 py-1.5 border border-white/10 bg-black/60 backdrop-blur-sm font-mono text-[10px] tracking-[0.25em] uppercase text-white group-hover:border-[#D83A60] group-hover:text-[#D83A60] transition-colors ${member.image ? 'mt-72' : ''}`}>
+          {isPlaying ? "TRANSMITTING INTRO..." : "[ CLICK TO LISTEN ]"}
+        </div>
       </div>
     </div>
   );
 
   return (
-    <div ref={rowRef} className="flex flex-col md:flex-row w-full gap-8 md:gap-16 items-stretch">
+    <div ref={rowRef} className="flex flex-col md:flex-row w-full gap-8 md:gap-12 items-stretch">
       {isEven ? (
         <>
           {IntroBox}
@@ -505,7 +597,7 @@ export const CoreTeamSection: React.FC = () => {
             Tech Vayuna
           </h2>
           
-          <p className="subtitle mt-8 text-white/60 max-w-2xl text-base md:text-lg font-light leading-relaxed">
+          <p className="subtitle mt-8 text-[#E8E4DD] max-w-2xl text-base md:text-lg font-normal leading-relaxed">
             A group of passionate innovators, builders and dreamers united by the vision to create impact through technology.
           </p>
         </div>

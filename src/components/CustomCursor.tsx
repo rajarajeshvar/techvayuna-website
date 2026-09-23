@@ -160,7 +160,7 @@ export const CustomCursor: React.FC = () => {
           className="w-full h-full object-contain transition-all duration-500"
           style={{
             willChange: "transform",
-            filter: `drop-shadow(0 0 20px ${activeTheme.secondary}) drop-shadow(0 0 35px ${activeTheme.primary})`,
+            filter: `drop-shadow(0 0 6px ${activeTheme.primary})`,
           }}
         />
       </div>
