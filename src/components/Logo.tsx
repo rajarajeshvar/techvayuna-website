@@ -78,10 +78,10 @@ export const Logo: React.FC<{ className?: string; iconOnly?: boolean }> = ({
       <PhoenixIcon className="w-12 h-12 md:w-14 h-14" />
       
       {!iconOnly && (
-        <div className="flex flex-col ml-1 leading-none font-display skew-x-[-10deg]">
+        <div className="flex flex-col ml-1.5 leading-none font-editorial italic">
           {/* Top Line: TECH */}
           <span 
-            className="text-base md:text-lg font-black tracking-widest text-[#ece8e1]"
+            className="text-base md:text-lg font-bold tracking-widest text-[#ece8e1]"
           >
             TECH
           </span>
@@ -92,7 +92,7 @@ export const Logo: React.FC<{ className?: string; iconOnly?: boolean }> = ({
             >
               VAYUNA
             </span>
-            <div className="w-6 h-6 rotate-[15deg] translate-y-[-4px]">
+            <div className="w-5 h-5 rotate-[15deg] translate-y-[-2px]">
               <FeatherIcon className="w-full h-full" />
             </div>
           </div>

@@ -154,16 +154,6 @@ export const HeroSection: React.FC = () => {
       <div data-speed="0.7" className="absolute top-24 left-8 text-val-light/10 font-mono text-xs select-none">// 45.321.AA</div>
       <div data-speed="0.7" className="absolute top-24 right-8 text-val-light/10 font-mono text-xs select-none">// SEC_00_LND</div>
       
-      {/* Decorative layout elements */}
-      <div className="absolute left-8 bottom-24 hidden lg:flex flex-col gap-2">
-        <div className="w-16 h-[2px] bg-gradient-to-r from-brand-orange to-brand-pink" />
-        <span className="font-mono text-[9px] text-val-gray tracking-widest">TACTICAL SYSTEM OVERVIEW</span>
-      </div>
-      <div className="absolute right-8 bottom-24 hidden lg:flex flex-col items-end gap-2">
-        <div className="w-16 h-[2px] bg-gradient-to-r from-brand-pink to-brand-purple" />
-        <span className="font-mono text-[9px] text-val-gray tracking-widest">STABLE_CONNECTION // 99%</span>
-      </div>
-
       <div className="text-center z-10 flex flex-col items-center mt-12">
 
         {/* Main Title */}
@@ -175,9 +165,9 @@ export const HeroSection: React.FC = () => {
             className="w-64 h-64 md:w-80 md:h-80 mt-12 mb-6 object-contain drop-shadow-[0_0_30px_rgba(244,59,134,0.3)]"
           />
           <h1
-            className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tighter uppercase leading-[0.8] font-sans text-val-light max-w-4xl text-center"
+            className="text-5xl sm:text-7xl md:text-9xl font-editorial italic font-bold tracking-tight uppercase leading-[0.85] text-val-light max-w-4xl text-center"
           >
-          TECH <span className="text-gradient-brand text-glow-brand">VAYUNA</span>
+          TECH <span className="text-gradient-brand text-glow-brand font-editorial italic">VAYUNA</span>
           </h1>
         </div>
 
@@ -185,10 +175,6 @@ export const HeroSection: React.FC = () => {
           ref={decorationRef}
           className="mt-8 flex flex-col items-center gap-4"
         >
-          <p className="text-val-gray font-mono max-w-md text-xs sm:text-sm tracking-wide uppercase">
-            A premium interface testing protocol. Move downward to experience the interactive 3D typography fold-out.
-          </p>
-
           {/* Call to Scroll Action */}
           <a
             href="#reveal"

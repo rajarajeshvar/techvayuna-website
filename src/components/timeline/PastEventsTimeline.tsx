@@ -248,10 +248,7 @@ export const PastEventsTimeline: React.FC = () => {
 
       {/* ── Section Header ── */}
       <div className="timeline-section__header">
-        <div className="timeline-section__tag">
-          <span className="timeline-section__tag-label">SEC_04</span>
-          <span className="timeline-section__tag-comment">// PAST_EVENTS_TIMELINE</span>
-        </div>
+
         <h2 className="timeline-section__title">OUR JOURNEY</h2>
         <p className="timeline-section__subtitle">
           The phoenix&apos;s trail through milestones that shaped Tech Vayuna

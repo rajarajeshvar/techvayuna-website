@@ -143,7 +143,7 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
 
             return (
               <div
-                key={item.photo.url} 
+                key={`${item.common}-${i}`} 
                 role="group"
                 aria-label={item.common}
                 onClick={(e) => {
@@ -152,7 +152,10 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
                     onItemClick(item);
                   }
                 }}
-                className="absolute w-[300px] sm:w-[360px] md:w-[410px] h-[260px] sm:h-[290px] md:h-[320px] pointer-events-auto cursor-pointer transition-transform duration-300 hover:scale-105 backface-hidden"
+                className={cn(
+                  "absolute w-[300px] sm:w-[360px] md:w-[410px] h-[260px] sm:h-[290px] md:h-[320px] pointer-events-auto transition-transform duration-300 hover:scale-105 backface-hidden",
+                  onItemClick ? "cursor-pointer" : "cursor-grab active:cursor-grabbing"
+                )}
                 style={{
                   transform: `rotateY(${itemAngle}deg) translateZ(${radius}px)`,
                   left: '50%',

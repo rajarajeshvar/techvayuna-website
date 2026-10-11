@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Outfit, Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono, Outfit, Space_Grotesk, Bodoni_Moda } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { CustomCursor } from "@/components/CustomCursor";
@@ -29,9 +29,16 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["400", "500", "600", "700"],
 });
 
+const bodoniModa = Bodoni_Moda({
+  variable: "--font-bodoni",
+  subsets: ["latin"],
+  style: ["italic", "normal"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
+
 export const metadata: Metadata = {
-  title: "VALORANT Cinematic Scroll Experience | Premium Typography Reveal",
-  description: "A premium, bold, and cinematic scroll-triggered experience inspired by VALORANT, built with Next.js, React, GSAP ScrollTrigger, and Tailwind CSS.",
+  title: "Tech Vayuna | Innovation & Technology Club",
+  description: "Official website for Tech Vayuna, built with Next.js, React, GSAP ScrollTrigger, and Tailwind CSS.",
 };
 
 export default function RootLayout({
@@ -42,7 +49,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} ${spaceGrotesk.variable} ${bodoniModa.variable} h-full antialiased`}
     >
       <head>
         <link rel="stylesheet" href="/miraj-background/background.css" />

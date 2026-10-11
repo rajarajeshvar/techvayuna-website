@@ -45,12 +45,16 @@ export const TimelineEventCard: React.FC<TimelineEventCardProps> = ({
       style={{ "--card-index": index, top: `${topPercent}%`, transform: "translateY(-50%)" } as React.CSSProperties}
     >
       {/* Oversized year watermark */}
-      <div className="timeline-card__year-watermark" style={{ color: "red" }} aria-hidden="true">
+      <div className="timeline-card__year-watermark" aria-hidden="true">
         {event.year}
       </div>
 
       {/* Glass card body */}
       <div className="timeline-card__glass">
+        {/* Soft frosted ambient glows that shine through the frosted blur glass */}
+        <div className="timeline-card__glow-orb timeline-card__glow-orb--1" aria-hidden="true" />
+        <div className="timeline-card__glow-orb timeline-card__glow-orb--2" aria-hidden="true" />
+
         {/* Animated border (SVG stroke draw) */}
         <svg className="timeline-card__border-svg" viewBox="0 0 400 280" preserveAspectRatio="none">
           <rect
@@ -113,10 +117,12 @@ export const TimelineEventCard: React.FC<TimelineEventCardProps> = ({
           <p className="timeline-card__desc">{event.description}</p>
 
           {/* Badge */}
-          <div className="timeline-card__badge">
-            <span className="timeline-card__badge-icon">{event.badgeIcon}</span>
-            <span className="timeline-card__badge-text">{event.badge}</span>
-          </div>
+          {Boolean(event.badge) && (
+            <div className="timeline-card__badge">
+              {event.badgeIcon && <span className="timeline-card__badge-icon">{event.badgeIcon}</span>}
+              <span className="timeline-card__badge-text">{event.badge}</span>
+            </div>
+          )}
 
           {/* Learn More */}
           <button className="timeline-card__btn" type="button">
