@@ -76,7 +76,7 @@ export const Card = React.memo(
           isPlaying
             ? "border-val-red ring-2 ring-val-red/50 shadow-[0_0_30px_rgba(244,59,134,0.45)] scale-[1.01]"
             : "border-white/10 hover:border-white/30",
-          hovered !== null && !isHovered && "blur-sm scale-[0.98] opacity-75"
+          hovered !== null && !isHovered && "md:blur-sm md:scale-[0.98] md:opacity-75"
         )}
       >
         <Image
@@ -125,10 +125,10 @@ export const Card = React.memo(
         {/* Overlay Content */}
         <div
           className={cn(
-            "absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent flex flex-col justify-end py-6 px-6 transition-all duration-300",
+            "absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent flex flex-col justify-end py-5 px-5 sm:py-6 sm:px-6 transition-all duration-300",
             isHovered
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-2 pointer-events-none md:pointer-events-none"
+              ? "opacity-100 translate-y-0 pointer-events-auto"
+              : "opacity-95 md:opacity-0 translate-y-0 md:translate-y-2 pointer-events-auto md:pointer-events-none"
           )}
         >
           {card.role && (

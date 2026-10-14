@@ -235,7 +235,7 @@ export const InteractiveThemeCube: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="fixed bottom-5 right-5 z-[9990] flex flex-col items-center select-none"
+      className="fixed bottom-3 right-3 sm:bottom-5 sm:right-5 z-[9990] flex flex-col items-center select-none scale-90 sm:scale-100 origin-bottom-right"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

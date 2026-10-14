@@ -151,7 +151,7 @@ export const HeroSection: React.FC = () => {
       </div>
 
       
-      <div className="text-center z-10 flex flex-col items-center mt-12">
+      <div className="text-center z-10 flex flex-col items-center mt-6 sm:mt-12">
 
         {/* Main Title */}
         <div data-speed="1.2" ref={titleRef} className="flex flex-col items-center">
@@ -159,10 +159,10 @@ export const HeroSection: React.FC = () => {
             ref={phoenixRef}
             src="https://lottie.host/868902d8-2ea0-4537-a9f9-7de6896fce86/wmLLX1SXsI.svg"
             alt="Phoenix"
-            className="w-64 h-64 md:w-80 md:h-80 mt-12 mb-6 object-contain drop-shadow-[0_0_30px_rgba(244,59,134,0.3)]"
+            className="w-40 h-40 sm:w-60 sm:h-60 md:w-80 md:h-80 mt-2 sm:mt-8 mb-3 sm:mb-6 object-contain drop-shadow-[0_0_30px_rgba(244,59,134,0.3)]"
           />
           <h1
-            className="text-5xl sm:text-7xl md:text-9xl font-editorial italic font-bold tracking-tight uppercase leading-[0.85] text-val-light max-w-4xl text-center"
+            className="text-4xl sm:text-7xl md:text-9xl font-editorial italic font-bold tracking-tight uppercase leading-[0.9] sm:leading-[0.85] text-val-light max-w-4xl text-center px-2"
           >
           TECH <span className="text-gradient-brand text-glow-brand font-editorial italic">VAYUNA</span>
           </h1>
@@ -170,16 +170,16 @@ export const HeroSection: React.FC = () => {
 
         <div
           ref={decorationRef}
-          className="mt-8 flex flex-col items-center gap-4"
+          className="mt-4 sm:mt-8 flex flex-col items-center gap-4"
         >
           {/* Call to Scroll Action */}
           <a
-            href="#reveal"
-            className="mt-8 group flex flex-col items-center gap-2 cursor-pointer transition-all text-val-light/50 hover:text-brand-pink"
+            href="#introduction"
+            className="mt-4 sm:mt-8 group flex flex-col items-center gap-2 cursor-pointer transition-all text-val-light/50 hover:text-brand-pink"
           >
-            <span className="text-xs font-mono tracking-widest uppercase">SCROLL DOWN</span>
-            <div className="w-8 h-8 rounded-full border border-val-light/20 flex items-center justify-center group-hover:border-brand-pink/50 transition-all animate-bounce">
-              <ArrowDown className="w-4 h-4 text-inherit" />
+            <span className="text-[10px] sm:text-xs font-mono tracking-widest uppercase">SCROLL DOWN</span>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-val-light/20 flex items-center justify-center group-hover:border-brand-pink/50 transition-all animate-bounce">
+              <ArrowDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-inherit" />
             </div>
           </a>
         </div>

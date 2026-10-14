@@ -19,8 +19,17 @@ export const CustomCursor: React.FC = () => {
   const angleRef = useRef(0);
   const bankingRef = useRef(0);
   const rafIdRef = useRef<number | null>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(true);
 
   useEffect(() => {
+    // Check if the device is a mouse/pointer device that supports hovering
+    const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    if (isTouch) {
+      setIsTouchDevice(true);
+      return;
+    }
+    setIsTouchDevice(false);
+
     let prevX = -100;
     let prevY = -100;
 
@@ -128,6 +137,8 @@ export const CustomCursor: React.FC = () => {
       if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
     };
   }, [isVisible]);
+
+  if (isTouchDevice) return null;
 
   return (
     <>

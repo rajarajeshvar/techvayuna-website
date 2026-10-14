@@ -98,8 +98,10 @@ export const DomainShowcase: React.FC = () => {
   // Responsive radius calculation: balances wide cinematic cards with dramatic 3D side angles
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 640) {
-        setRadius(300);
+      if (window.innerWidth < 480) {
+        setRadius(240);
+      } else if (window.innerWidth < 640) {
+        setRadius(290);
       } else if (window.innerWidth < 1024) {
         setRadius(380);
       } else {

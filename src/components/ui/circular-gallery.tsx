@@ -154,15 +154,13 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
                   }
                 }}
                 className={cn(
-                  "absolute w-[300px] sm:w-[360px] md:w-[410px] h-[260px] sm:h-[290px] md:h-[320px] pointer-events-auto transition-transform duration-300 hover:scale-105 backface-hidden",
+                  "absolute w-[260px] sm:w-[350px] md:w-[410px] h-[250px] sm:h-[290px] md:h-[320px] pointer-events-auto transition-transform duration-300 hover:scale-105 backface-hidden",
                   onItemClick ? "cursor-pointer" : "cursor-grab active:cursor-grabbing"
                 )}
                 style={{
-                  transform: `rotateY(${itemAngle}deg) translateZ(${radius}px)`,
+                  transform: `translate(-50%, -50%) rotateY(${itemAngle}deg) translateZ(${radius}px)`,
                   left: '50%',
                   top: '50%',
-                  marginLeft: '-150px',
-                  marginTop: '-130px',
                   opacity: opacity,
                   backfaceVisibility: 'hidden',
                   WebkitBackfaceVisibility: 'hidden',

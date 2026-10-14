@@ -42,15 +42,19 @@ body {
   color: var(--foreground);
   font-family: var(--font-bodoni), "Bodoni Moda", Didot, Georgia, serif;
   overflow-x: hidden;
-  cursor: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-bodoni), "Bodoni Moda", Didot, Georgia, serif;
 }
 
-*, *::before, *::after, button, a, input, select, textarea {
-  cursor: none !important;
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  *, *::before, *::after, button, a, input, select, textarea {
+    cursor: none !important;
+  }
 }
 
 /* Custom Utilities for TECH VAYUNA Style */
@@ -982,28 +986,41 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 768px) {
   .timeline-section__canvas {
     max-width: 100%;
-    padding: 0 16px;
+    overflow: hidden;
   }
 
   .timeline-card {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-    margin: 24px auto;
+    position: absolute;
+    width: min(calc(100vw - 32px), 360px);
+    left: 50% !important;
     right: auto !important;
-    left: auto !important;
+    transform: translate(-50%, -50%) !important;
+  }
+
+  .timeline-card__glass {
+    padding: 16px;
   }
 
   .timeline-card__year-watermark {
-    font-size: 60px;
-    right: 0 !important;
-    left: 0 !important;
+    font-size: clamp(48px, 14vw, 76px);
+    right: auto !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
     text-align: center;
+    top: -24px;
+  }
+
+  .timeline-card__thumbnails {
+    opacity: 1;
+    max-height: 44px;
+    margin-top: 8px;
+    pointer-events: auto;
   }
 
   .timeline-node {
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
+    opacity: 0.7;
   }
 }
 
