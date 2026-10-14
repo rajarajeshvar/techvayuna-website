@@ -150,9 +150,6 @@ export const HeroSection: React.FC = () => {
         />
       </div>
 
-      {/* Grid crosshairs at screen corners */}
-      <div data-speed="0.7" className="absolute top-24 left-8 text-val-light/10 font-mono text-xs select-none">// 45.321.AA</div>
-      <div data-speed="0.7" className="absolute top-24 right-8 text-val-light/10 font-mono text-xs select-none">// SEC_00_LND</div>
       
       <div className="text-center z-10 flex flex-col items-center mt-12">
 

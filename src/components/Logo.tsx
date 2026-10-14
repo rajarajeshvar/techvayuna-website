@@ -73,12 +73,16 @@ export const Logo: React.FC<{ className?: string; iconOnly?: boolean }> = ({
   iconOnly = false 
 }) => {
   return (
-    <div className={`flex items-center select-none ${className}`}>
-      {/* Phoenix Icon */}
-      <PhoenixIcon className="w-12 h-12 md:w-14 h-14" />
+    <a href="#" className={`flex items-center select-none group ${className}`}>
+      {/* Phoenix Logo Image */}
+      <img
+        src="/logo.png"
+        alt="Tech Vayuna Logo"
+        className="w-10 h-10 md:w-12 md:h-12 object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_0_12px_rgba(244,59,134,0.4)]"
+      />
       
       {!iconOnly && (
-        <div className="flex flex-col ml-1.5 leading-none font-editorial italic">
+        <div className="flex flex-col ml-2 leading-none font-editorial italic">
           {/* Top Line: TECH */}
           <span 
             className="text-base md:text-lg font-bold tracking-widest text-[#ece8e1]"
@@ -98,6 +102,6 @@ export const Logo: React.FC<{ className?: string; iconOnly?: boolean }> = ({
           </div>
         </div>
       )}
-    </div>
+    </a>
   );
 };

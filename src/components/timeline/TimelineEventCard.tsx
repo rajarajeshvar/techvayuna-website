@@ -124,11 +124,6 @@ export const TimelineEventCard: React.FC<TimelineEventCardProps> = ({
             </div>
           )}
 
-          {/* Learn More */}
-          <button className="timeline-card__btn" type="button">
-            <span className="timeline-card__btn-text">Learn More</span>
-            <span className="timeline-card__btn-arrow">→</span>
-          </button>
         </div>
 
         {/* Dispersion particles on reveal */}

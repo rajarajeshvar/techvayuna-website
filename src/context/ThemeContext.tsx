@@ -21,7 +21,7 @@ export const THEMES: ThemeConfig[] = [
   {
     id: "crimson",
     name: "CRIMSON PROTOCOL",
-    code: "01 // CRMSN",
+    code: "CRMSN",
     primary: "#f43b86",
     secondary: "#ff5e36",
     accent: "#610094",
@@ -35,7 +35,7 @@ export const THEMES: ThemeConfig[] = [
   {
     id: "cyan",
     name: "HYPERDRIVE CYAN",
-    code: "02 // CYAN",
+    code: "CYAN",
     primary: "#00f0ff",
     secondary: "#0070f3",
     accent: "#002b5b",
@@ -49,7 +49,7 @@ export const THEMES: ThemeConfig[] = [
   {
     id: "emerald",
     name: "MATRIX EMERALD",
-    code: "03 // EMRLD",
+    code: "EMRLD",
     primary: "#00ff88",
     secondary: "#059669",
     accent: "#064e3b",
@@ -63,7 +63,7 @@ export const THEMES: ThemeConfig[] = [
   {
     id: "gold",
     name: "SOLAR FLARE",
-    code: "04 // SOLAR",
+    code: "SOLAR",
     primary: "#ffb800",
     secondary: "#ff5e36",
     accent: "#78350f",
@@ -77,7 +77,7 @@ export const THEMES: ThemeConfig[] = [
   {
     id: "violet",
     name: "ABYSSAL VIOLET",
-    code: "05 // VIOLET",
+    code: "VIOLET",
     primary: "#c084fc",
     secondary: "#a855f7",
     accent: "#3b0764",
@@ -91,7 +91,7 @@ export const THEMES: ThemeConfig[] = [
   {
     id: "orange",
     name: "PLASMA BLAZE",
-    code: "06 // PLSMA",
+    code: "PLSMA",
     primary: "#ff5e36",
     secondary: "#ff2a00",
     accent: "#450a0a",

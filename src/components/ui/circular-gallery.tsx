@@ -11,6 +11,7 @@ const cn = (...classes: (string | undefined | null | false)[]) => {
 export interface GalleryItem {
   common: string;
   binomial: string;
+  emoji?: string;
   photo: {
     url: string; 
     text: string;
@@ -168,41 +169,36 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
                   transition: 'opacity 0.3s linear, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
                 }}
               >
-                <div className="relative w-full h-full rounded-2xl shadow-[0_20px_45px_-12px_rgba(0,0,0,0.85)] overflow-hidden group border border-white/[0.08] hover:border-[#ff5e36]/60 bg-[#0d0c14]/95 backdrop-blur-xl transition-all duration-300">
-                  {/* Matte top accent bar */}
-                  <div className="absolute top-0 left-0 w-full h-[2px] bg-[#ff5e36]/80 z-10" />
+                <div className="relative w-full h-full rounded-2xl shadow-[0_20px_45px_-12px_rgba(0,0,0,0.85)] overflow-hidden group border border-white/[0.08] hover:border-[#ff5e36]/60 bg-gradient-to-b from-[#13111c] via-[#0d0c15] to-[#07060a] p-5 sm:p-6 flex flex-col justify-between backdrop-blur-xl transition-all duration-300">
+                  {/* Top brand accent bar */}
+                  <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#ff5e36] via-[#f43b86] to-transparent z-10" />
 
-                  <img
-                    src={item.photo.url}
-                    alt={item.photo.text}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    style={{ objectPosition: item.photo.pos || 'center' }}
-                  />
+                  {/* Subtle ambient interior glow */}
+                  <div className="absolute -top-12 -right-12 w-36 h-36 bg-[#f43b86]/10 rounded-full blur-2xl pointer-events-none group-hover:bg-[#f43b86]/20 transition-all duration-500" />
 
-                  {/* Matte dark overlay with cyber details */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0b0a10] via-[#0b0a10]/65 to-transparent text-white flex flex-col justify-end p-4 sm:p-5">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-[10px] font-mono tracking-widest text-[#ff5e36] uppercase bg-[#14121c]/90 px-2 py-0.5 rounded border border-[#ff5e36]/30">
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-[10px] font-mono tracking-widest text-[#ff5e36] uppercase bg-[#14121c] px-2.5 py-0.5 rounded border border-[#ff5e36]/30">
                         {item.binomial}
                       </span>
-                      <span className="text-[9px] font-mono text-white/60">// SEC_0{i + 1}</span>
+                      {item.emoji && (
+                        <span className="text-2xl sm:text-3xl select-none transition-transform duration-300 group-hover:scale-125 group-hover:rotate-6 drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
+                          {item.emoji}
+                        </span>
+                      )}
                     </div>
 
-                    <h3 className="text-xl sm:text-2xl font-black font-display tracking-tight text-white group-hover:text-[#f43b86] transition-colors duration-300">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-black font-display tracking-tight text-white group-hover:text-[#f43b86] transition-colors duration-300 mb-2">
                       {item.common}
                     </h3>
 
-                    <p className="text-xs mt-1 line-clamp-2 text-white/85 leading-relaxed font-sans max-w-md">
+                    <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-sans line-clamp-3">
                       {item.photo.text}
                     </p>
+                  </div>
 
-                    <div className="mt-2.5 pt-2.5 border-t border-white/10 flex items-center justify-between">
-                      <p className="text-[11px] font-mono text-white/70">{item.photo.by}</p>
-                      <span className="text-[10px] font-mono font-bold text-[#f43b86] tracking-wider uppercase group-hover:translate-x-1 transition-transform flex items-center gap-1">
-                        <span>INSPECT</span>
-                        <span>&rarr;</span>
-                      </span>
-                    </div>
+                  <div className="relative z-10 pt-3 border-t border-white/10 flex items-center">
+                    <p className="text-[11px] sm:text-xs font-mono text-white/70">{item.photo.by}</p>
                   </div>
                 </div>
               </div>

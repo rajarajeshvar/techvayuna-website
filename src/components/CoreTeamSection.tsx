@@ -46,7 +46,7 @@ export function FocusCardsDemo() {
       name: "KRISHNAN.D",
       title: "KRISHNAN.D",
       src: "/krishnan.jpg",
-      audioSrc: "/intro.mp3",
+      audioSrc: "/audio/krishnan.ogg",
       socials: {
         github: "https://github.com",
         linkedin: "https://linkedin.com",
